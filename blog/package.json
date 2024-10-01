@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
+    "test": "NODE_TEST=test node --test"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,8 @@
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.7",
     "postman": "^0.2.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
   }
 }
