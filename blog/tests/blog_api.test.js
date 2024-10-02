@@ -14,6 +14,19 @@ test.only("blogs are returned as json",async () => {
          .expect("Content-Type",/application\/json/)
 })
 
+test.only("blogs has unique id named 'id' ", async () => {
+
+    const blogs = await api
+          .get("/api/blogs")
+          .expect(200)
+          .expect("Content-Type",/application\/json/)
+
+    const blogs_id = blogs.body.map(b => b.id)
+
+    blogs_id.forEach((id) => {
+         assert(id)
+    })
+})
 
 after(async() => {
   mongoose.connection.close()
