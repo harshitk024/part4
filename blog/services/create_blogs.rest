@@ -4,6 +4,5 @@ Content-Type: application/json
 {
     "title": "Blog-1",
     "author": "unknown",
-    "url": "myblog.co.in",
-    "likes": 5335
+    "url": "myblog.co.in"
 }
