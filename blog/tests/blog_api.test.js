@@ -146,6 +146,55 @@ describe('properties are missing', () => {
  })
 });
 
+describe("deletion of blog",() => {
+
+    test.only("succeeds with status code 204 if id is valid", async () => {
+
+        const blogsAtStart = await helper.blogsInDb()
+        const blogToDelete = blogsAtStart[0]
+
+        await api
+              .delete(`/api/blogs/${blogToDelete.id}`)
+              .expect(204)
+        
+        const blogAtEnd = await helper.blogsInDb()
+
+        assert.strictEqual(blogAtEnd.length,initialBlogs.length - 1)
+
+        const content = blogAtEnd.map(r => r.title)
+
+        assert(!content.includes(blogToDelete.title))
+
+
+    })
+})
+
+
+describe("updation of blog",() => {
+
+    test.only("succeeds with status code 204", async () => {
+
+        const blogsAtStart = await helper.blogsInDb()
+        const blogtoUpdate = blogsAtStart[0]
+
+        const updated = {...blogtoUpdate}
+        updated.likes = 100
+
+        await api
+              .put(`/api/blogs/${blogtoUpdate.id}`)
+              .send(updated)
+              .expect(204)
+
+        
+        const blogs = await helper.blogsInDb()
+        const updatedBlog = blogs[0]
+
+        assert.strictEqual(blogs.length,initialBlogs.length)
+
+        assert.strictEqual(updatedBlog.likes,100)
+
+    })
+})
 
 after(async() => {
   mongoose.connection.close()
