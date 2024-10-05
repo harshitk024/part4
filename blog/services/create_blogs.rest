@@ -1,8 +1,10 @@
-POST http://localhost:3008/api/blogs
+POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoazI0IiwiaWQiOiI2NzAwZDlmYmFkY2YzMzNjYWQ0NzlmMWMiLCJpYXQiOjE3MjgxMDkwNjJ9.Am8rQSUdLZKHgfnLua6-9rzGsUkQVDWloVHemcw5vHo
 
 {
-    "title": "Blog-1",
-    "author": "unknown",
-    "url": "myblog.co.in"
+    "title": "harsh's blog",
+    "author": "harsh",
+    "url": "myblog.co.in",
+    "likes": 300
 }

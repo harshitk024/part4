@@ -59,28 +59,33 @@ test.only("blogs has unique id named 'id' ", async () => {
     })
 })
 
-test.only("blog is created",async () => {
+describe("creation of blog",() => {
 
-    const newBlog = {
-       title: "test-blog",
-       author: "noauthor",
-       url: "https://test_blog.com",
-       likes: 51
-    }
+    test.only("blog is created with status code 201",async () => {
 
-    await api
-            .post("/api/blogs")
-            .send(newBlog)
-            .expect(201)
-            .expect("Content-Type",/application\/json/)
+        const newBlog = {
+           title: "test-blog",
+           author: "noauthor",
+           url: "https://test_blog.com",
+           likes: 51
+        }
+        
+    
+        await api
+                .post("/api/blogs")
+                .send(newBlog)
+                .expect(201)
+                .expect("Content-Type",/application\/json/)
+    
+        const blogs = await helper.blogsInDb()
+    
+        assert.strictEqual(blogs.length,initialBlogs.length + 1)
+    
+        const content = blogs.map((blog) => blog.title)
+    
+        assert(content.includes("test-blog"))
+    })
 
-    const blogs = await helper.blogsInDb()
-
-    assert.strictEqual(blogs.length,initialBlogs.length + 1)
-
-    const content = blogs.map((blog) => blog.title)
-
-    assert(content.includes("test-blog"))
 })
 
 test.only("likes is undefined", async() => {
@@ -197,5 +202,5 @@ describe("updation of blog",() => {
 })
 
 after(async() => {
-  mongoose.connection.close()
+  await mongoose.connection.close()
 })
